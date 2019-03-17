@@ -1,4 +1,4 @@
-package com.uniovi.es.wallapop;
+package com.uniovi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,10 +7,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WallapopApplicationTests {
+public class Sdi705LabSpringApplicationTests {
 
     @Test
     public void contextLoads() {
     }
 
 }
+

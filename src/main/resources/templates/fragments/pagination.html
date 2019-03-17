@@ -1,9 +1,10 @@
-<div class="text-center" xmlns:th="http://www.thymeleaf.org"
+<div class="text-center" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org"
 >
-    <ul class="pagination pagination-centered">
+    <ul class="pagination pagination-centered" id="pagination_nav">
         <!-- Primera -->
         <li class="page-item">
-            <a class="page-link" th:href="@{'?page=0'}">Primera</a>
+            <a class="page-link" th:href="@{'?page=0'}" th:text="#{first.message}">Primera</a>
         </li>
 
         <!-- Anterior (si la hay ) -->
@@ -27,7 +28,7 @@
         <!-- Última -->
         <li class="page-item">
             <a class="page-link"
-               th:href="@{'?page='+${page.getTotalPages()-1}}"> Última</a>
+               th:href="@{'?page='+${page.getTotalPages()-1}}" th:text="#{last.message}"> Última</a>
         </li>
     </ul>
 </div>

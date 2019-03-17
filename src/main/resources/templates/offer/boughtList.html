@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+<!-- Barra de Navegación superior -->
+<nav th:replace="fragments/nav"></nav>
+
+<div class="container">
+    <h2 th:text="#{purchases.message}">Compras</h2>
+    <form action="/offer/boughtList" class="navbar-form">
+        <div class="form-group">
+            <input class="form-control" name="searchText" size="50"
+                   th:placeholder="#{search.message}"
+                   type="text">
+        </div>
+        <button class="btn btn-default" th:text="#{searchSimple.message}" type="submit">Buscar</button>
+    </form>
+    <p th:text="#{purchasedOffers.message}">Las ofertas que ha comprado son las siguientes:</p>
+    <div class="table-responsive">
+        <table class="table table-hover" id="tableOffers"
+               th:fragment="tableOffers">
+            <thead>
+            <tr>
+                <th class="col-md-1" th:text="#{email.message}">E-mail</th>
+                <th th:text="#{title.message}">Titulo</th>
+                <th th:text="#{description.message}">Descripción</th>
+                <th th:text="#{price.message}">Precio</th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="offer : ${boughtList}">
+                <td th:text="${offer.getBuyer().getEmail()}">vendedor@email.com</td>
+                <td th:text="${offer.getTitle()}">Bici</td>
+                <td th:text="${offer.description}">Bici de cuatro ruedas</td>
+                <td><span th:text="${offer.value}"></span> &euro;</td>
+                <td><a th:href="${'/offer/details/' + offer.id}">Detalles</a></td>
+                <td><a sec:authorize="!hasRole('ROLE_USER')"
+                       th:href="${'/offer/edit/' + offer.id}">Modificar</a>
+                    <div sec:authorize="hasRole('ROLE_USER')" th:if="${offer.buy}">
+                        <button class="btn btn-default" th:id="${'nobuyButton' + offer.id}" th:text="#{dontBuy.message}"
+                                type="button">No comprar
+                        </button>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            $("#nobuyButton[[${offer.id}]]").click(function () {
+                                $.get("/offer/[[${offer.id}]]/nobuy", function (data) {
+                                    var numberPage = [[${param.page}]];
+                                    var urlUpdate = '/offer/list/updateBought';
+                                    if (numberPage != null) {
+                                        urlUpdate += "?page=" + numberPage[0];
+                                    }
+                                    $("#tableOffers").load(urlUpdate);
+                                });
+                            });
+                            /*]]>*/
+                        </script>
+                    </div>
+                </td>
+                <td><a sec:authorize="!hasRole('ROLE_USER')" th:href="${'/offer/delete/' + offer.id}"
+                       th:text="#{remove.message}">Eliminar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="fragments/pagination"></footer>
+
+</div>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

@@ -6,16 +6,15 @@ import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.SignUpFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class UsersController {
@@ -45,7 +44,7 @@ public class UsersController {
             return "signup";
         user.setRole(rolesService.getRoles()[0]);
         usersService.addUser(user);
-        securityService.autoLogin(user.getDni(), user.getPasswordConfirm());
+        securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
         return "redirect:home";
     }
 
@@ -54,18 +53,14 @@ public class UsersController {
         return "login";
     }
 
-    @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String dni = auth.getName();
-        User activeUser = usersService.getUserByDni(dni);
-        model.addAttribute("markList", activeUser.getMarks());
-        return "home";
-    }
-
     @RequestMapping("/user/list")
-    public String getListado(Model model) {
-        model.addAttribute("usersList", usersService.getUsers());
+    public String getListado(Model model, Principal principal) {
+        User user = usersService.getUserByEmail(principal.getName());
+        List<User> usuarios = usersService.getUsers(user);
+        usuarios.remove(user);
+        model.addAttribute("usersList", usuarios);
+        if (usuarios.isEmpty())
+            return "redirect:/logout";
         return "user/list";
     }
 
@@ -96,14 +91,24 @@ public class UsersController {
     @RequestMapping(value = "/user/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
         User user = usersService.getUser(id);
-        model.addAttribute("user", user);
+        model.addAttribute("userMod", user);
         return "user/edit";
     }
 
     @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.POST)
-    public String setEdit(Model model, @PathVariable Long id, @ModelAttribute User user) {
-        user.setId(id);
-        usersService.addUser(user);
-        return "redirect:/user/details/" + id;
+    public String setEdit(Model model, @PathVariable Long id, @ModelAttribute User userMod) {
+        User original = usersService.getUser(id);
+        original.setName(userMod.getName());
+        original.setLastName(userMod.getLastName());
+        original.setEmail(userMod.getEmail());
+        usersService.addUser(original);
+        return "redirect:/user/list/";
     }
+
+    @RequestMapping(value = "/user/list/delete", method = RequestMethod.POST)
+    public String removeUsers(@RequestParam(value = "chkUserID", required = false) Long[] usersIDs, Model model) {
+        Arrays.stream(usersIDs).forEach(id -> usersService.deleteUser(id));
+        return "redirect:/user/list";
+    }
+
 }

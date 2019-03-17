@@ -1,5 +1,5 @@
 <!-- nav.html -->
-<nav class="navbar navbar-inverse" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+<nav class="navbar navbar-inverse" id="navbar" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
      xmlns:th="http://www.thymeleaf.org">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -8,31 +8,33 @@
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <img alt="logo" src="/img/student-48.png"/>
+            <img alt="logo" src="/img/nube.png"/>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                 <li><a href="/home">Home</a></li>
-                <li class="dropdown" id="marks-menu"><a class="dropdown-toggle"
-                                                        data-toggle="dropdown" href="#"> Gestión de notas <span
+                <li class="dropdown" id="offers-menu"><a class="dropdown-toggle"
+                                                         data-toggle="dropdown" href="#"
+                                                         th:text="#{offersManage.message}"><span
                         class="caret"></span>
                 </a>
                     <ul class="dropdown-menu">
-                        <li sec:authorize="hasRole('ROLE_PROFESSOR')">
-                            <a href="/mark/add">Agregar Nota</a>
+                        <li>
+                            <a href="/offer/add" th:text="#{addOffer.message}">Agregar Oferta</a>
                         </li>
-                        <li><a href="/mark/list">Ver Notas</a></li>
+                        <li><a href="/offer/list" th:text="#{seeOffer.message}">Ver Ofertas</a></li>
+                        <li><a href="/offer/boughtList" th:text="#{seePurchases.message}">Ver Compras</a></li>
                     </ul>
                 </li>
                 <li class="dropdown" id="users-menu"
                     sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="dropdown-toggle"
-                       data-toggle="dropdown" href="#"> Gestión de Usuarios <span
+                       data-toggle="dropdown" href="#" th:text="#{usersManage.message}"> Gestión de Usuarios <span
                             class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/add">Agregar usuario</a></li>
-                        <li><a href="/user/list">Ver Usuarios</a></li>
+                        <li><a href="/user/add" th:text="#{addUsser.message}">Agregar usuario</a></li>
+                        <li><a href="/user/list" th:text="#{seeUsers.message}">Ver Usuarios</a></li>
                     </ul>
                 </li>
             </ul>
@@ -67,7 +69,7 @@
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
-                    <a href="/logout">
+                    <a href="/logout" th:text="#{logout.message}">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Desconectar
                     </a>
@@ -76,3 +78,11 @@
         </div>
     </div>
 </nav>
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+     xmlns:th="http://www.thymeleaf.org">
+    <div sec:authorize="hasRole('ROLE_USER')" th:align="center">
+        <span class="label label-primary" sec:authentication="name">ejemplo@email.com</span>
+        <span class="label label-success" id="userMoney" th:text="${session.money} + '&euro;'"></span>
+    </div>
+</div>

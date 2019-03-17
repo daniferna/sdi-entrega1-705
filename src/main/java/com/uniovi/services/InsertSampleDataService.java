@@ -1,6 +1,6 @@
 package com.uniovi.services;
 
-import com.uniovi.entities.Mark;
+import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,63 +20,60 @@ public class InsertSampleDataService {
 
     @PostConstruct
     public void init() {
-        User user1 = new User("99999990A", "Pedro", "Díaz");
-        user1.setPassword("123456");
+        User user1 = new User("user1@email.com", "Pedro", "Díaz");
+        user1.setPassword("user1");
         user1.setRole(rolesService.getRoles()[0]);
-        User user2 = new User("99999991B", "Lucas", "Núñez");
+        User user2 = new User("user2@email.com", "Lucas", "Núñez");
         user2.setPassword("123456");
         user2.setRole(rolesService.getRoles()[0]);
-        User user3 = new User("99999992C", "María", "Rodríguez");
+        User user3 = new User("user3@email.com", "María", "Rodríguez");
         user3.setPassword("123456");
         user3.setRole(rolesService.getRoles()[0]);
-        User user4 = new User("99999993D", "Marta", "Almonte");
+        User user4 = new User("user4@email.com", "Marta", "Almonte");
         user4.setPassword("123456");
-        user4.setRole(rolesService.getRoles()[1]);
-        User user5 = new User("99999977E", "Pelayo", "Valdes");
-        user5.setPassword("123456");
+        user4.setRole(rolesService.getRoles()[0]);
+        User user5 = new User("admin@email.com", "Daniel", "Fernandez");
+        user5.setPassword("admin");
         user5.setRole(rolesService.getRoles()[1]);
-        User user6 = new User("99999988F", "Edward", "Núñez");
-        user6.setPassword("123456");
-        user6.setRole(rolesService.getRoles()[2]);
-        Set user1Marks = new HashSet<Mark>() {
+        Set user1Offers = new HashSet<Offer>() {
             {
-                add(new Mark("Nota A1", 10.0, user1));
-                add(new Mark("Nota A2", 9.0, user1));
-                add(new Mark("Nota A3", 7.0, user1));
-                add(new Mark("Nota A4", 6.5, user1));
+                add(new Offer("Chupete", "Chupete gastado", 10.0, user1));
+                add(new Offer("TV", "Tele vieja", 9.0, user1));
+                add(new Offer("Consola vieja", "PS3", 7.0, user1));
+                add(new Offer("Consola nueva", "PS4", 9.5, user1));
             }
         };
-        user1.setMarks(user1Marks);
-        Set user2Marks = new HashSet<Mark>() {
+        user1.setOffers(user1Offers);
+        Set user2Offers = new HashSet<Offer>() {
             {
-                add(new Mark("Nota B1", 5.0, user2));
-                add(new Mark("Nota B2", 4.3, user2));
-                add(new Mark("Nota B3", 8.0, user2));
-                add(new Mark("Nota B4", 3.5, user2));
+                add(new Offer("Ob1", "Objeto B1", 5.0, user2));
+                add(new Offer("Ob2", "Objeto B2", 4.3, user2));
+                add(new Offer("Ob3", "Objeto B3", 8.0, user2));
+                add(new Offer("Ob4", "Objeto B4", 3.5, user2));
+                add(new Offer("Objeto caro", "Muy caro", 150d, user2));
             }
         };
-        user2.setMarks(user2Marks);
-        Set user3Marks = new HashSet<Mark>() {
+        user2.setOffers(user2Offers);
+        Set user3Offers = new HashSet<Offer>() {
             {
-                add(new Mark("Nota C1", 5.5, user3));
-                add(new Mark("Nota C2", 6.6, user3));
-                add(new Mark("Nota C3", 7.0, user3));
+                add(new Offer("Oc1", "Objeto C1", 5.5, user3));
+                add(new Offer("Oc2", "Objeto C2", 6.6, user3));
+                add(new Offer("Oc3", "Objeto C3", 7.0, user3));
             }
         };
-        user3.setMarks(user3Marks);
-        Set user4Marks = new HashSet<Mark>() {
+        user3.setOffers(user3Offers);
+        Set user4Offers = new HashSet<Offer>() {
             {
-                add(new Mark("Nota D1", 10.0, user4));
-                add(new Mark("Nota D2", 8.0, user4));
-                add(new Mark("Nota D3", 9.0, user4));
+                add(new Offer("Od1", "Objeto D1", 10.0, user4));
+                add(new Offer("Od2", "Objeto D2", 8.0, user4));
+                add(new Offer("Od3", "Objeto D3", 9.0, user4));
             }
         };
-        user4.setMarks(user4Marks);
+        user4.setOffers(user4Offers);
         usersService.addUser(user1);
         usersService.addUser(user2);
         usersService.addUser(user3);
         usersService.addUser(user4);
         usersService.addUser(user5);
-        usersService.addUser(user6);
     }
 }

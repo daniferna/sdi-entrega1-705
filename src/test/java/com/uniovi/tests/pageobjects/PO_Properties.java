@@ -1,4 +1,4 @@
-package com.uniovi.es.wallapop.tests.pageobjects;
+package com.uniovi.tests.pageobjects;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;

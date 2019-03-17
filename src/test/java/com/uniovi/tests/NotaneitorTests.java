@@ -1,8 +1,7 @@
-package com.uniovi.es.wallapop.tests;
+package com.uniovi.tests;
 
-
-import com.uniovi.es.wallapop.tests.pageobjects.*;
-import com.uniovi.es.wallapop.utils.SeleniumUtils;
+import com.uniovi.tests.pageobjects.*;
+import com.uniovi.utils.SeleniumUtils;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
@@ -18,31 +17,22 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NotaneitorTests {
 
+    static String URLlocal = "http://localhost:8080";
+    static String URLremota = "ec2-35-180-86-141.eu-west-3.compute.amazonaws.com:8080";
+    static String URL = URLlocal; // Se va a probar con la URL remota, sino URL=URLlocal
+
     //En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas)):
     static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
     static String Geckdriver024 = "C:\\Users\\Daniel\\OneDrive - Universidad de Oviedo" +
             "\\Tercer Curso\\SDI\\Practicas\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
     //Común a Windows y a MACOSX
     static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-    static String URL = "http://localhost:8090";
 
     public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
         System.setProperty("webdriver.firefox.bin", PathFirefox);
         System.setProperty("webdriver.gecko.driver", Geckdriver);
         WebDriver driver = new FirefoxDriver();
         return driver;
-    }
-
-    //Antes de la primera prueba
-    @BeforeClass
-    static public void begin() {
-    }
-
-    //Al finalizar la última prueba
-    @AfterClass
-    static public void end() {
-        //Cerramos el navegador al finalizar las pruebas
-        driver.quit();
     }
 
     //Antes de cada prueba se navega al URL home de la aplicaciónn
@@ -55,6 +45,18 @@ public class NotaneitorTests {
     @After
     public void tearDown() {
         driver.manage().deleteAllCookies();
+    }
+
+    //Antes de la primera prueba
+    @BeforeClass
+    static public void begin() {
+    }
+
+    //Al finalizar la última prueba
+    @AfterClass
+    static public void end() {
+        //Cerramos el navegador al finalizar las pruebas
+        driver.quit();
     }
 
     //PR01. Acceder a la página principal /

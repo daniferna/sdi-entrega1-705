@@ -1,8 +1,7 @@
-package com.uniovi.es.wallapop.tests.pageobjects;
+package com.uniovi.tests.pageobjects;
 
-import com.uniovi.es.wallapop.utils.SeleniumUtils;
+import com.uniovi.utils.SeleniumUtils;
 import org.openqa.selenium.WebDriver;
-
 
 public class PO_HomeView extends PO_NavView {
 

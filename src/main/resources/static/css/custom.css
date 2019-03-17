@@ -1,7 +1,12 @@
-/* Sticky footer styles-------------------------------------------------- */
+@charset "UTF-8";
+
 html {
     position: relative;
     min-height: 100%;
+}
+
+th, td {
+    text-align: center;
 }
 
 body {
@@ -18,5 +23,3 @@ footer {
     text-align: center;
     line-height: 60px
 }
-
-/* Sticky footer styles-------------------------------------------------- */

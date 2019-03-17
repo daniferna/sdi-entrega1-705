@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<!-- Barra de Navegación superior -->
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{editOffer.message}">Editar Oferta</h2>
+    <form class="form-horizontal" method="post"
+          th:action="${'/offer/edit/' + offer.id}">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="title" th:text="#{title.message}">Titulo:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="title"
+                       required="true" th:placeholder="#{titleExample.message}"
+                       th:value="${offer.title}" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description"
+                   th:text="#{description.message}">Descripción:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="description"
+                       required="true" th:placeholder="#{detailsExample.message}"
+                       th:value="${offer.description}" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd" th:text="#{price.message}">Precio:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="value" required="true"
+                       th:placeholder="#{priceExample.message}" th:value="${offer.value}" type="number"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" th:text="#{modify.message}" type="submit">Modificar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

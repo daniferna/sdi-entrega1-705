@@ -1,5 +1,6 @@
 package com.uniovi.entities;
 
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,20 +11,21 @@ public class User {
     @GeneratedValue
     private long id;
     @Column(unique = true)
-    private String dni;
+    private String email;
     private String name;
     private String lastName;
+    private float money = 100;
     private String role;
     private String password;
     @Transient // propiedad que no se almacena en la tabla.
     private String passwordConfirm;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Mark> marks;
+    private Set<Offer> offers;
 
-    public User(String dni, String name, String lastName) {
+    public User(String email, String name, String lastName) {
         super();
-        this.dni = dni;
+        this.email = email;
         this.name = name;
         this.lastName = lastName;
     }
@@ -37,14 +39,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public String getName() {
@@ -63,12 +57,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Set<Mark> getMarks() {
-        return marks;
+    public Set<Offer> getOffers() {
+        return offers;
     }
 
-    public void setMarks(Set<Mark> marks) {
-        this.marks = marks;
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 
     public String getPassword() {
@@ -95,7 +89,27 @@ public class User {
         return role;
     }
 
+    public String getFormatedRole() {
+        return getRole().substring(5).substring(0, 1).toUpperCase() + getRole().substring(6).toLowerCase();
+    }
+
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public float getMoney() {
+        return money;
+    }
+
+    public void setMoney(float money) {
+        this.money = money;
     }
 }

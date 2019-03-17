@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<!-- Barra de Navegación superior -->
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{userEdit.message}">Editar Usuario</h2>
+    <form class="form-horizontal" method="post"
+          th:action="${'/user/edit/' + userMod.id}">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email" th:text="#{email.message}">Email:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="email"
+                       required="true" th:placeholder="#{emailExample.message}"
+                       th:value="${userMod.email}" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name" th:text="#{name.message}">Nombre:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="name"
+                       required="true" th:placeholder="#{exampleName.message}"
+                       th:value="${userMod.name}" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="lastName" th:text="#{lastName.message}">Apellido:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="lastName"
+                       required="true" th:placeholder="#{lastNameExample.message}"
+                       th:value="${userMod.lastName}" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" th:text="#{modify.message}" type="submit">Modificar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

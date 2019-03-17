@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+<html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head"/>
 <body>
 <nav th:replace="fragments/nav"/>
 <div class="container" style="text-align: center">
     <h2 th:text="#{welcome.message}"></h2>
-    <h3>Esta es una zona privada la web</h3>
-    <p sec:authorize="isAuthenticated()">
-        Usuario Autenticado como :
-        <span sec:authentication="principal.username"
-              th:inline="text"></span>
-    </p>
-    <p>Notas del usuario</p>
+    <h3 th:text="#{homePageDescription.message}"></h3>
+    <h4 th:text="#{userOffers.message}"></h4>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="col-md-1">id</th>
-                <th>Descripción</th>
-                <th>Puntuación</th>
+                <th th:text="#{title.message}">Titulo</th>
+                <th th:text="#{description.message}">Descripción</th>
+                <th th:text="#{price.message}">Precio</th>
                 <th class="col-md-1"></th>
                 <th class="col-md-1"></th>
                 <th class="col-md-1"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="mark : ${markList}">
-                <td th:text="${mark.id}">1</td>
-                <td th:text="${mark.description}">Ejercicio 1</td>
-                <td th:text="${mark.score}">10</td>
-                <td><a th:href="${'/mark/details/' + mark.id}">detalles</a></td>
-                <td><a sec:authorize="hasRole('ROLE_PROFESSOR')"
-                       th:href="${'/mark/edit/' + mark.id}">modificar</a></td>
-                <td><a sec:authorize="hasRole('ROLE_PROFESSOR')"
-                       th:href="${'/mark/delete/' + mark.id}">eliminar</a></td>
+            <th:block th:each="offer : ${offerList}">
+                <tr>
+                    <td th:text="${offer.getTitle()}">Titulo</td>
+                    <td th:text="${offer.description}">Descripcion</td>
+                    <td th:text="${offer.value} + ' &euro;'"></td>
+                    <td><a th:href="${'/offer/details/' + offer.id}" th:text="#{details.message}">Detalles</a></td>
+                    <td><a th:href="${'/offer/edit/' + offer.id}" th:text="#{modify.message}">Modificar</a></td>
+                    <td><a th:href="${'/offer/delete/' + offer.id}" th:text="#{remove.message}">Eliminar</a></td>
             </tr>
+            </th:block>
             </tbody>
         </table>
     </div>

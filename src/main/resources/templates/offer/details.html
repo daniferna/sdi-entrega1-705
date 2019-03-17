@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<!-- Barra de Navegación superior -->
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{offerDetails.message}">Detalles de la oferta</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="#{sellerName.message}">Nombre del vendedor</div>
+        <div class="panel-body" th:text="${offer.user.getFullName()}">Manolo Perez</div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="#{offerDate.message}">Fecha de la oferta:</div>
+        <div class="panel-body" th:text="${offer.date.toLocaleString()}">
+            Fecha de la oferta
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="#{title.message}">Titulo:</div>
+        <div class="panel-body" th:text="${offer.title}">
+            Titulo de la oferta
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="#{description.message}">Descripción</div>
+        <div class="panel-body" th:text="${offer.description}">
+            Descripcion de la oferta
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="#{price.message}">Precio</div>
+        <div class="panel-body" th:text="${offer.value} + ' &euro;'">
+            10
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

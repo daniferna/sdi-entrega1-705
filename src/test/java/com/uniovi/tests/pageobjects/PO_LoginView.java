@@ -1,4 +1,4 @@
-package com.uniovi.es.wallapop.tests.pageobjects;
+package com.uniovi.tests.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
