@@ -25,14 +25,16 @@
                 <tr th:each="user : ${usersList}">
                     <td>
                         <th:block>
-                            <input name="chkUserID" th:value="${user.id}" type="checkbox"/>
+                            <input name="chkUserID" th:id="'ckDelete-' + ${user.getEmail()}" th:value="${user.id}"
+                                   type="checkbox"/>
                         </th:block>
                     </td>
                     <td th:text="${user.email}">ejemplo@ejemplo.com</td>
                     <td th:text="${user.name}">Nombre</td>
                     <td th:text="${user.lastName}">Apellidos</td>
                     <td><a th:href="${'/user/edit/' + user.id}" th:text="#{modify.message}">Modificar</a></td>
-                    <td><a th:href="${'/user/delete/' + user.id}" th:text="#{remove.message}">Eliminar</a></td>
+                    <td><a th:href="${'/user/delete/' + user.id}" th:id="'remove-' + ${user.getEmail()}"
+                           th:text="#{remove.message}">Eliminar</a></td>
                 </tr>
                 </tbody>
             </table>

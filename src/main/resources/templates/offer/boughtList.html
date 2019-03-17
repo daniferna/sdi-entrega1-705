@@ -35,7 +35,7 @@
             <tbody>
             <tr th:each="offer : ${boughtList}">
                 <td th:text="${offer.getBuyer().getEmail()}">vendedor@email.com</td>
-                <td th:text="${offer.getTitle()}">Bici</td>
+                <td th:id="titleOffer" th:text="${offer.getTitle()}">Bici</td>
                 <td th:text="${offer.description}">Bici de cuatro ruedas</td>
                 <td><span th:text="${offer.value}"></span> &euro;</td>
                 <td><a th:href="${'/offer/details/' + offer.id}">Detalles</a></td>

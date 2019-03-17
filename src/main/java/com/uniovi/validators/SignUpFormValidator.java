@@ -24,6 +24,8 @@ public class SignUpFormValidator implements Validator {
         User user = (User) target;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Error.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Error.empty");
 
         if (!user.getEmail().contains("@")) {
             errors.rejectValue("email", "Error.signup.email.at");

@@ -4,23 +4,23 @@ import com.uniovi.utils.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 public class PO_PrivateView extends PO_NavView {
-    static public void fillFormAddMark(WebDriver driver, int userOrder, String descriptionp,
-                                       String scorep) {
+    static public void fillFormAddOffer(WebDriver driver, String titulo, String detalles, double precio) {
         //Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
         SeleniumUtils.esperarSegundos(driver, 5);
-        //Seleccionamos el alumnos userOrder
-        new Select(driver.findElement(By.id("user"))).selectByIndex(userOrder);
-        //Rellenemos el campo de descripción
+        //Rellenemos el campo de titulo
+        WebElement title = driver.findElement(By.name("title"));
+        title.clear();
+        title.sendKeys(titulo);
+        //Rellenemos el campo de detalles
         WebElement description = driver.findElement(By.name("description"));
         description.clear();
-        description.sendKeys(descriptionp);
-        WebElement score = driver.findElement(By.name("score"));
-        score.click();
-        score.clear();
-        score.sendKeys(scorep);
+        description.sendKeys(detalles);
+        //Rellenemos el campo de precio
+        WebElement price = driver.findElement(By.name("value"));
+        price.clear();
+        price.sendKeys(String.valueOf(precio));
         By boton = By.className("btn");
         driver.findElement(boton).click();
     }

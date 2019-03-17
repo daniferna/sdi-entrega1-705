@@ -11,7 +11,7 @@
     <h2 th:text="#{offers.message}">Ofertas</h2>
     <form action="/offer/list" class="navbar-form">
         <div class="form-group">
-            <input class="form-control" name="searchText" th:placeholder="#{search.message}"
+            <input class="form-control" id="searchBox" name="searchText" th:placeholder="#{search.message}"
                    size="50"
                    type="text">
         </div>
@@ -46,7 +46,7 @@
             </thead>
             <tbody>
             <tr th:each="offer : ${offerList}">
-                <td th:text="${offer.getTitle()}">Titulo</td>
+                <td id="title" th:text="${offer.getTitle()}">Titulo</td>
                 <td th:text="${offer.description}">Bici de ejemplo</td>
                 <td><span th:text="${offer.value}"></span> &euro;</td>
                 <td><a th:href="${'/offer/details/' + offer.id}">Detalles</a></td>
@@ -80,6 +80,7 @@
                     </div>
                 </td>
                 <td><a sec:authorize="!hasRole('ROLE_USER')" th:href="${'/offer/delete/' + offer.id}"
+                       th:id="'removeOffer-' + ${offer.getTitle()}"
                        th:text="#{remove.message}">Eliminar</a></td>
             </tr>
             </tbody>

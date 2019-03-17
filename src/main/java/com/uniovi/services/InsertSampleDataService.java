@@ -59,6 +59,7 @@ public class InsertSampleDataService {
                 add(new Offer("Oc1", "Objeto C1", 5.5, user3));
                 add(new Offer("Oc2", "Objeto C2", 6.6, user3));
                 add(new Offer("Oc3", "Objeto C3", 7.0, user3));
+                add(new Offer("Objeto medio", "Objeto medio", 100.0, user3));
             }
         };
         user3.setOffers(user3Offers);
