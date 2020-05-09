@@ -1,6 +1,8 @@
 # App compra-venta (SpringBoot version)
 Aplicación de compra-venta de artículos entre particulares desarrollada como trabajo final para la asignatura de Sistemas Distribuidos e Internet del grado de Ingeniería Informática del Software de la Universidad de Oviedo.
 
+Existe una versión mas completa de la app escrita en [NodeJS]: https://github.com/daniferna/nodejs-compra-venta
+
 ### Características
 - Basada en el patrón de diseño Modelo-Vista-Controlador extendido con un Enrutador.
 - Escrita en java usando el framework SpringBoot.
